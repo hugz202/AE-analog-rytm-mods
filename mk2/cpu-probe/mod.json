@@ -1,0 +1,23 @@
+{
+ "id": "cpu-probe",
+ "version": "1.0",
+ "title": "CPU probe",
+ "category": "Diagnostics",
+ "author": "hugz202 (AE-analog-rytm-mods); MKII port: Iced-Cream",
+ "license": "MIT",
+ "description": "A measuring mod: three labels of SETTINGS > MIDI CONFIG > CHANNELS show the processor's load instead of their names (the settings are untouched). PERF CHANNEL shows CPU, the time the processor was not idle; AUTO CHANNEL shows AUDIO, the audio interrupt's average share of the time; PROG CH IN CH shows PEAK, its largest share of a single block. Each covers the time since it was last drawn. Timed with DMA timer 0 at the audio interrupt's entry and exit (core's render events) and in an idle loop that replaces main()'s final spin. Port of AE-analog-rytm-mods 0011-cpu-probe (Analog Rytm MK1).",
+ "device": "analog-rytm-mk2",
+ "os": "1.74",
+ "sources": ["cpu-probe.s"],
+ "subscribe": [
+  {"event": "ev_render_in", "fn": "cpu_probe_in", "order": 1},
+  {"event": "ev_render_out", "fn": "cpu_probe_out", "order": 99}
+ ],
+ "sites": [
+  {"addr": "0x40100a8c", "stock": "4eb9400a34d4", "op": "keep2", "target": "cpu_probe_idle"},
+  {"addr": "0x400459d6", "stock": "487940240549", "op": "jmp", "target": "cpu_probe_perf"},
+  {"addr": "0x400459fe", "stock": "487940240556", "op": "jmp", "target": "cpu_probe_auto"},
+  {"addr": "0x40045a26", "stock": "487940240563", "op": "jmp", "target": "cpu_probe_prog"}
+ ],
+ "requires": ["core"]
+}

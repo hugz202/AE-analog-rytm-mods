@@ -25,6 +25,11 @@ How to flash and get back to stock: [docs/FLASHING.md](docs/FLASHING.md).
 | `tx` | TX machines only |
 | `probe` | TX machines, FX SENDS, CPU probe |
 
+## MKII
+
+Ports of these mods to the Analog Rytm **MKII**, OS 1.74, as elekloader elemods, are
+in [mk2/](mk2/README.md). Everything else in this README is about the MK1.
+
 ## What you need
 
 - An Analog Rytm **MK1** (not the MKII), and the official **OS 1.74** `.syx` from
