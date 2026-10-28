@@ -1,0 +1,256 @@
+{
+ "id": "fx-sends",
+ "version": "1.0",
+ "title": "FX SENDS",
+ "category": "Effect",
+ "author": "hugz202 (AE-analog-rytm-mods); MKII port: Iced-Cream",
+ "license": "MIT",
+ "description": "A chorus as one more send effect, with the Analog Four chorus's controls. Press AMP a second time for the FX SENDS page: CHR, each track's send to a stereo chorus (saved with the sound, in core-ar2's mod storage), and the chorus's settings PRE, SPD, DEP, WID, FDB, HPF and the return's level VOL, global and held in RAM (back to their defaults at power-up, as on the MK1). The chorus runs on the ColdFire in the audio interrupt after the stock delay and reverb, on the voices the codec captured: two interpolated taps on one line, a one-pole high-pass on its input, the taps' average fed back. Its return joins the delay and reverb returns' PRE words (into the analog distortion and compressor) and follows the FX track's level, as the stock returns do. Nothing runs while no track sends. Its knobs are the hidden CY TEST machine's parameter records, renamed. Needs core-ar2 0.4 (its page tables, and 7 bits of sound storage), so it cannot share a build with both voice-dac and lfo-rnd. Port of AE-analog-rytm-mods 0010-fx-sends (Analog Rytm MK1).",
+ "device": "analog-rytm-mk2",
+ "os": "1.74",
+ "sources": [
+  "fx-sends.s"
+ ],
+ "storage": [
+  {
+   "sym": "fx_sends_chr",
+   "scope": "sound",
+   "bits": 7
+  }
+ ],
+ "resources": {
+  "core": "0.4"
+ },
+ "sites": [
+  {
+   "addr": "0x40121406",
+   "stock": "4eb94010e6bc",
+   "op": "keep2",
+   "target": "fx_sends_fx_gate"
+  },
+  {
+   "addr": "0x4011fe56",
+   "stock": "4eb94010e6bc",
+   "op": "keep2",
+   "target": "fx_sends_fx_gate"
+  },
+  {
+   "addr": "0x401213a4",
+   "stock": "4eb94010ee4e",
+   "op": "keep2",
+   "target": "fx_sends_ret_gate"
+  },
+  {
+   "addr": "0x4011fe2e",
+   "stock": "4eb94010ee4e",
+   "op": "keep2",
+   "target": "fx_sends_ret_gate"
+  },
+  {
+   "addr": "0x401c5724",
+   "stock": "40237f1b",
+   "op": "ptr",
+   "target": "fx_sends_str_chr_l"
+  },
+  {
+   "addr": "0x401c5728",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c572c",
+   "stock": "402376f0",
+   "op": "ptr",
+   "target": "fx_sends_str_chr"
+  },
+  {
+   "addr": "0x401c573c",
+   "stock": "00000200",
+   "op": "bytes",
+   "new": "00007f00"
+  },
+  {
+   "addr": "0x401c5758",
+   "stock": "40237f23",
+   "op": "ptr",
+   "target": "fx_sends_str_pre_l"
+  },
+  {
+   "addr": "0x401c575c",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c5760",
+   "stock": "4025a72c",
+   "op": "ptr",
+   "target": "fx_sends_str_pre"
+  },
+  {
+   "addr": "0x401c578c",
+   "stock": "40237f2d",
+   "op": "ptr",
+   "target": "fx_sends_str_spd_l"
+  },
+  {
+   "addr": "0x401c5790",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c5794",
+   "stock": "4023e5bb",
+   "op": "ptr",
+   "target": "fx_sends_str_spd"
+  },
+  {
+   "addr": "0x401c57c0",
+   "stock": "40237f36",
+   "op": "ptr",
+   "target": "fx_sends_str_dep_l"
+  },
+  {
+   "addr": "0x401c57c4",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c57c8",
+   "stock": "40237f3f",
+   "op": "ptr",
+   "target": "fx_sends_str_dep"
+  },
+  {
+   "addr": "0x401c57f4",
+   "stock": "40237f43",
+   "op": "ptr",
+   "target": "fx_sends_str_wid_l"
+  },
+  {
+   "addr": "0x401c57f8",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c57fc",
+   "stock": "40258a82",
+   "op": "ptr",
+   "target": "fx_sends_str_wid"
+  },
+  {
+   "addr": "0x401c5828",
+   "stock": "40237f4c",
+   "op": "ptr",
+   "target": "fx_sends_str_fdb_l"
+  },
+  {
+   "addr": "0x401c582c",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c5830",
+   "stock": "40237f55",
+   "op": "ptr",
+   "target": "fx_sends_str_fdb"
+  },
+  {
+   "addr": "0x401c585c",
+   "stock": "40237f59",
+   "op": "ptr",
+   "target": "fx_sends_str_hpf_l"
+  },
+  {
+   "addr": "0x401c5860",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c5864",
+   "stock": "40254a59",
+   "op": "ptr",
+   "target": "fx_sends_str_hpf"
+  },
+  {
+   "addr": "0x401c5890",
+   "stock": "40237f62",
+   "op": "ptr",
+   "target": "fx_sends_str_vol_l"
+  },
+  {
+   "addr": "0x401c5894",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "fx_sends_str_group"
+  },
+  {
+   "addr": "0x401c5898",
+   "stock": "40237f92",
+   "op": "ptr",
+   "target": "fx_sends_str_vol"
+  }
+ ],
+ "subscribe": [
+  {
+   "event": "ev_tick",
+   "fn": "fx_sends_tick",
+   "order": 50
+  },
+  {
+   "event": "ev_project",
+   "fn": "fx_sends_project",
+   "order": 50
+  }
+ ],
+ "contribute": [
+  {
+   "to": "core_pages",
+   "order": 15,
+   "data": "00000000",
+   "relocs": [
+    [
+     0,
+     "abs32",
+     "sym:fx_sends_page",
+     0
+    ]
+   ]
+  },
+  {
+   "to": "core_params",
+   "order": 50,
+   "data": "00000000",
+   "relocs": [
+    [
+     0,
+     "abs32",
+     "sym:fx_sends_params",
+     0
+    ]
+   ]
+  },
+  {
+   "to": "core_view_pages",
+   "order": 30,
+   "data": "00000000",
+   "relocs": [
+    [
+     0,
+     "abs32",
+     "sym:fx_sends_view_page",
+     0
+    ]
+   ]
+  }
+ ],
+ "requires": [
+  "core"
+ ]
+}

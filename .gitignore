@@ -6,3 +6,4 @@ __pycache__/
 
 # Elektron's firmware is never committed: put your own copy in stock/
 stock/*.syx
+mk2/*/out/

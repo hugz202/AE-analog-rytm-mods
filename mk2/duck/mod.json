@@ -1,0 +1,178 @@
+{
+ "id": "duck",
+ "version": "1.0",
+ "title": "DUCK",
+ "category": "Sound",
+ "author": "hugz202 (AE-analog-rytm-mods); MKII port: Iced-Cream",
+ "license": "MIT",
+ "description": "Sidechain-style pumping without the analog compressor: every audio block the other voices' analog VCA words are scaled by a gain that dips when the key track's voice hits. FX track, AMP (COMP) pressed twice: the DUCK page, SRC (OFF or the key track), DEP, ATK, HLD, REL. Global settings held in RAM (SRC OFF at power-up). The key is the source voice's own audio as the codec captured it, one block late; the delay and reverb returns are not ducked. Its knobs are the hidden HH TEST machine's parameter records, renamed. Needs core-ar2 0.4 (its page tables). Cannot share a build with comp-preview, which changes the same COMP page list. Port of AE-analog-rytm-mods 0012-duck (Analog Rytm MK1).",
+ "device": "analog-rytm-mk2",
+ "os": "1.74",
+ "sources": [
+  "duck.s"
+ ],
+ "sites": [
+  {
+   "addr": "0x401212b2",
+   "stock": "4eb940109940",
+   "op": "keep2",
+   "target": "duck_gate"
+  },
+  {
+   "addr": "0x401c55d0",
+   "stock": "00007f00",
+   "op": "bytes",
+   "new": "00000c00"
+  },
+  {
+   "addr": "0x401c55ec",
+   "stock": "40237eeb",
+   "op": "ptr",
+   "target": "duck_str_src_l"
+  },
+  {
+   "addr": "0x401c55f0",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "duck_str_group"
+  },
+  {
+   "addr": "0x401c55f4",
+   "stock": "402376f0",
+   "op": "ptr",
+   "target": "duck_str_src"
+  },
+  {
+   "addr": "0x401c5604",
+   "stock": "00000300",
+   "op": "bytes",
+   "new": "00007f00"
+  },
+  {
+   "addr": "0x401c5620",
+   "stock": "40237ef3",
+   "op": "ptr",
+   "target": "duck_str_dep_l"
+  },
+  {
+   "addr": "0x401c5624",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "duck_str_group"
+  },
+  {
+   "addr": "0x401c5628",
+   "stock": "4025a72c",
+   "op": "ptr",
+   "target": "duck_str_dep"
+  },
+  {
+   "addr": "0x401c5654",
+   "stock": "40237efd",
+   "op": "ptr",
+   "target": "duck_str_atk_l"
+  },
+  {
+   "addr": "0x401c5658",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "duck_str_group"
+  },
+  {
+   "addr": "0x401c565c",
+   "stock": "40237cd8",
+   "op": "ptr",
+   "target": "duck_str_atk"
+  },
+  {
+   "addr": "0x401c5688",
+   "stock": "40237f06",
+   "op": "ptr",
+   "target": "duck_str_hld_l"
+  },
+  {
+   "addr": "0x401c568c",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "duck_str_group"
+  },
+  {
+   "addr": "0x401c5690",
+   "stock": "40237f92",
+   "op": "ptr",
+   "target": "duck_str_hld"
+  },
+  {
+   "addr": "0x401c56bc",
+   "stock": "40237f0d",
+   "op": "ptr",
+   "target": "duck_str_rel_l"
+  },
+  {
+   "addr": "0x401c56c0",
+   "stock": "40240b7f",
+   "op": "ptr",
+   "target": "duck_str_group"
+  },
+  {
+   "addr": "0x401c56c4",
+   "stock": "40254c6c",
+   "op": "ptr",
+   "target": "duck_str_rel"
+  }
+ ],
+ "contribute": [
+  {
+   "to": "core_pages",
+   "order": 14,
+   "data": "00000000",
+   "relocs": [
+    [
+     0,
+     "abs32",
+     "sym:duck_page",
+     0
+    ]
+   ]
+  },
+  {
+   "to": "core_params",
+   "order": 50,
+   "data": "00000000",
+   "relocs": [
+    [
+     0,
+     "abs32",
+     "sym:duck_params",
+     0
+    ]
+   ]
+  },
+  {
+   "to": "core_view_pages",
+   "order": 30,
+   "data": "00000000",
+   "relocs": [
+    [
+     0,
+     "abs32",
+     "sym:duck_view_page",
+     0
+    ]
+   ]
+  }
+ ],
+ "requires": [
+  "core"
+ ],
+ "subscribe": [
+  {
+   "event": "ev_tick",
+   "fn": "duck_tick",
+   "order": 50
+  }
+ ],
+ "resources": {
+  "core": "0.4"
+ }
+}
